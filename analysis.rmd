@@ -153,6 +153,42 @@ View(df)
 ### Distribution of income levels of students
 ```{r}
 df |>
-    
+    group_by(income_lvl) |>
+    summarize(count = n()) |>
+    ggplot(aes(income_lvl, count)) +
+    geom_col() +
+    coord_flip()
+```
+#### on campus vs off campus
+```{r}
+df |>
+    group_by(campus) |>
+    summarize(count = n()) |>
+    ggplot(aes(campus, count)) +
+    geom_col()+
+    coord_flip()
+```
+### on campus average cost vs off campus average cost
+
+```{r}
+df |>
+    group_by(campus) |>
+    summarize(average_cost = mean(net_cost))
+```
+
+# income level and net_cost
+```{r}
+df |>
+    group_by(income_lvl) |>
+    summarize(average_cost = mean(net_cost)) |>
+    ggplot(aes(income_lvl, average_cost)) +
+    geom_col()
+```
+```{r}
+df |>
+    group_by(year) |>
+    summarize(average_cost = mean(net_cost)) |>
+    ggplot(aes(year, average_cost)) +
+    geom_line()
 ```
 
