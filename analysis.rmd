@@ -1,0 +1,41 @@
+```{r}
+library(data.table)
+library(tidyverse)
+```
+
+```{r}
+df <- fread('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-10/salary_potential.csv')
+```
+```{r}
+df |>
+    na.omit() |>
+    select(-rank) |>
+    arrange(desc(stem_percent)) |>
+    slice(1:100) |>
+    ggplot(aes(stem_percent, mid_career_pay)) +
+    geom_point()+
+    geom_smooth(method = 'lm', se=TRUE)
+```
+
+```{r}
+df |>
+    na.omit() |>
+    select(make_world_better_percent, stem_percent) |>
+    arrange(desc(stem_percent)) |>
+    slice(1:100) |>
+    ggplot(aes(stem_percent, make_world_better_percent)) +
+    geom_point()+
+    geom_smooth(method = 'lm', se=TRUE)
+```
+```{r}
+df |>
+    na.omit() |>
+    group_by(state_name) |>
+    summarise(count = n()) |>
+    arrange(desc(count)) 
+```
+```{r}
+df <- fread('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-10/tuition_cost.csv')
+View(df)
+```
+
