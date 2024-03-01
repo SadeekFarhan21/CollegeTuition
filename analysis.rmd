@@ -6,6 +6,7 @@ library(tidyverse)
 ```{r}
 df <- fread('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-10/salary_potential.csv')
 ```
+
 ```{r}
 df |>
     na.omit() |>
@@ -27,6 +28,7 @@ df |>
     geom_point()+
     geom_smooth(method = 'lm', se=TRUE)
 ```
+
 ```{r}
 df |>
     na.omit() |>
@@ -34,8 +36,101 @@ df |>
     summarise(count = n()) |>
     arrange(desc(count)) 
 ```
+
 ```{r}
+# colleges and their tuition and stuff 
 df <- fread('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-10/tuition_cost.csv')
 View(df)
+```
+
+# Business Question
+
+```{r}
+glimpse(df)
+```
+
+Average cost between 2 and 4 year
+```{r}
+df %>%
+    group_by(degree_length) |>
+    summarise(count = n()) |>
+    slice(1:2) |>
+    ggplot(aes(degree_length, count)) +
+    geom_col()
+```
+
+
+Cheapest in-state total
+```{r}
+df |>
+    filter(type == 'Public') |>
+    filter(degree_length == '4 Year') |>
+    group_by(state_code) |>
+    summarise(average_cost_of_attendance = mean(in_state_total)) |>
+    arrange(average_cost_of_attendance) |>
+    slice(2:11) |>
+    arrange(average_cost_of_attendance) |>
+    ggplot(aes(state_code, average_cost_of_attendance)) +
+    geom_col() + 
+    coord_flip()
+```
+
+```{r}
+
+View(df)
+```
+
+Cheapest out-of-state total
+```{r}
+df |>
+    filter(type == 'Public') |>
+    filter(degree_length == '4 Year') |>
+    group_by(state_code) |>
+    summarise(average_cost_of_attendance = mean(out_of_state_total)) |>
+    arrange(average_cost_of_attendance) |>
+    slice(2:11) |>
+    arrange(average_cost_of_attendance) |>
+    ggplot(aes(state_code, average_cost_of_attendance)) +
+    geom_col() + 
+    coord_flip()
+```
+
+
+Cheapest and most expensive state
+```{r}
+
+```
+
+
+Private vs Public average cost
+
+```{r}
+df |>
+    filter(degree_length == "4 Year") |>
+    group_by(type) |>
+    summarise(average = mean(in_state_total)) |>
+    ggplot(aes(type, average)) +
+    geom_col() +
+    coord_flip()
+```
+
+```{r}
+df <- fread("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-10/diversity_school.csv")
+View(df)
+```
+
+```{r}
+df |>
+    na.omit() |>
+    select(name, total_enrollment, state) |>
+    distinct() |>
+    group_by(state) |>
+    summarize(state_total = sum(total_enrollment)) |>
+    distinct() |>
+    arrange(desc(state_total))
+```
+```{r}
+df <- fread("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-10/all-schools.csv")
+df
 ```
 
