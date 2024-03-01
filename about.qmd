@@ -3,3 +3,5 @@ title: "About"
 ---
 
 About this site
+My name is Farhan Sadeek and I am a student at the Ohio State University.
+What do you think has the best things in life

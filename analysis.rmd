@@ -5,7 +5,19 @@ library(tidyverse)
 
 ```{r}
 df <- fread('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-10/salary_potential.csv')
+View(df)
 ```
+early vs mid career pay correlation
+```{r}
+# strong correlation
+df |>
+    select(early_career_pay, mid_career_pay) |>
+    ggplot(aes(early_career_pay, mid_career_pay)) +
+    geom_point() +
+    geom_smooth(method = lm)
+
+```
+
 
 ```{r}
 df |>
@@ -75,11 +87,6 @@ df |>
     coord_flip()
 ```
 
-```{r}
-
-View(df)
-```
-
 Cheapest out-of-state total
 ```{r}
 df |>
@@ -132,5 +139,20 @@ df |>
 ```{r}
 df <- fread("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-10/all-schools.csv")
 df
+```
+
+```{r}
+df <- fread("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-10/student_diversity.csv")
+View(df)
+```
+```{r}
+df <- fread("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-10/tuition_income.csv")
+View(df)
+```
+
+### Distribution of income levels of students
+```{r}
+df |>
+    
 ```
 

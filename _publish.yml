@@ -1,0 +1,4 @@
+- source: project
+  quarto-pub:
+    - id: c97a852b-3b2b-40d2-becd-b308a8923871
+      url: 'https://fsadeek.quarto.pub/a-new-website'
